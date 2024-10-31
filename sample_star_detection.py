@@ -1,14 +1,3 @@
-"""
-General structure
-Prerequisite:
-- Either train or import a CNN
-
-After:
-- Find regions in an image via Hough Circle Transform (possibly sharpen image beforehand?)
-- Use a CNN that can refine the stars and/or confirm that they indeed are stars
-
-"""
-
 import cv2
 import numpy as np
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
@@ -35,10 +24,10 @@ def find_roi(gray_img, colored_img, circles):
             label = "Star"
         else:
             label = "Non-Star"
-        '''
+    
         if (label == 'Star'):
             cv2.circle(colored_img, (x, y), r, (0, 255, 255), 2)
-       '''
+       
         cv2.circle(colored_img, (x, y), r, (0, 255, 0) if label == 'Star' else (0, 0, 255), 2)
         cv2.putText(colored_img, label, (x - 20, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0) if label == 'Star' else (0, 0, 255), 2)
 
