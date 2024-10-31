@@ -6,7 +6,7 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
-# CNN Model stuff here (either import a star detection CNN or train my own, what's better?)
+# CNN Model stuff here
 # Splitting data up
 categories = ['galaxy', 'star']
 images = []
@@ -27,6 +27,7 @@ images = images.astype('float32') / 255.0        # Normalize pixel values to [0,
 labels = np.array(labels)
 x_train, x_val, y_train, y_val = train_test_split(images, labels, test_size=0.2, random_state=42)
 
+# Creating and training the model
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
     MaxPooling2D(pool_size=(2, 2)),
@@ -47,7 +48,7 @@ model.compile(optimizer='adam',
 history = model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=16, batch_size=32)
 model.save('star_verification_cnn_2.h5')
 
-
+# plot graph to show CNN accuracy
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.xlabel('Epoch')
